@@ -9,7 +9,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "https://roha-vetassist-backend.onrender.com/api",
+  baseURL: `${import.meta.env.VITE_API_URL}/api`,
 });
 
 export default api;

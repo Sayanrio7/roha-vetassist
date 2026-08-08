@@ -4,3 +4,13 @@ body {
   background: #f8fafc;
   font-family: Inter, sans-serif;
 }
+
+/* Hide scrollbar while keeping textarea scrollable */
+textarea {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+textarea::-webkit-scrollbar {
+  display: none;
+}

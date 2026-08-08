@@ -279,23 +279,58 @@ function DoctorRecommendation({
               type="button"
               onClick={generateDoctorRemarks}
               disabled={generatingRemarks}
-              className={`w-full lg:w-auto flex justify-center items-center px-5 py-3 rounded-lg font-semibold text-white transition
-${
-  generatingRemarks
-    ? "bg-gray-500 cursor-not-allowed"
-    : "bg-green-600 hover:bg-green-700 cursor-pointer"
-}`}
+              className={`w-full lg:w-auto flex justify-center items-center gap-3 px-5 py-3 rounded-lg font-semibold text-white transition ${
+                generatingRemarks
+                  ? "bg-green-600 cursor-not-allowed"
+                  : "bg-green-600 hover:bg-green-700 cursor-pointer"
+              }`}
             >
-              {generatingRemarks ? "Generating..." : "✨ Generate with AI"}
+              {generatingRemarks ? (
+                <>
+                  <span
+                    className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"
+                    aria-hidden="true"
+                  />
+
+                  <span>Generating with AI...✨</span>
+                </>
+              ) : (
+                <>
+                  <span>✨ Generate with AI</span>
+                </>
+              )}
             </button>
           </div>
+
+          {generatingRemarks && (
+            <div className="mb-4 flex items-center gap-3 rounded-lg bg-white border border-green-200 px-4 py-3 text-sm text-green-700">
+              <span
+                className="w-4 h-4 border-2 border-green-600 border-t-transparent rounded-full animate-spin"
+                aria-hidden="true"
+              />
+
+              <span>
+                AI is analyzing the screening data, medical history, and
+                approved treatments to prepare the clinical decision...
+              </span>
+            </div>
+          )}
 
           <textarea
             rows={8}
             value={doctorRemarks}
             onChange={(e) => setDoctorRemarks(e.target.value)}
-            placeholder="Write the final veterinary clinical decision..."
-            className="w-full border rounded-xl p-4 resize-none bg-white"
+            disabled={generatingRemarks}
+            placeholder={
+              generatingRemarks
+                ? "AI is preparing the final clinical decision..."
+                : "Write the final veterinary clinical decision..."
+            }
+            className={`w-full border rounded-xl p-4 resize-none bg-white ${
+              generatingRemarks
+                ? "bg-gray-50 cursor-not-allowed opacity-70"
+                : ""
+            }`}
           />
 
           <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 mt-3">

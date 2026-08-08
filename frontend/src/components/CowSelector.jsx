@@ -3,7 +3,7 @@ import SectionCard from "./SectionCard";
 
 function CowSelector({ cows, selectedCow, onChange }) {
   return (
-    <SectionCard title="Select Cattle">
+    <SectionCard title="Cattle Records">
       <div className="space-y-5">
         {/* Top */}
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3">

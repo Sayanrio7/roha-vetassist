@@ -97,7 +97,7 @@ function HistoryTable({ history }) {
                       <div className="flex items-center gap-2">
                         <CalendarDays size={16} className="text-gray-500" />
 
-                        {new Date(item.screeningDate).toLocaleDateString()}
+                        {new Date(item.screeningDate).toLocaleDateString("en-GB")}
                       </div>
                     </td>
 

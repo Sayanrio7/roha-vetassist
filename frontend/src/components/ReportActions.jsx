@@ -200,12 +200,11 @@ function ReportActions({
 
                 <a
                   href={`${API_URL}/uploads/reports/${generatedFiles.clinicalReport}`}
-                  target="_blank"
-                  rel="noreferrer"
+                  download
                   className="w-full md:w-auto flex justify-center items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-5 py-3 rounded-lg"
                 >
                   <Download size={18} />
-                  View PDF
+                  Download PDF
                 </a>
               </div>
             </div>
@@ -231,12 +230,11 @@ function ReportActions({
 
                 <a
                   href={`${API_URL}/uploads/prescriptions/${generatedFiles.prescription}`}
-                  target="_blank"
-                  rel="noreferrer"
+                  download
                   className="w-full md:w-auto flex justify-center items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-5 py-3 rounded-lg"
                 >
                   <Download size={18} />
-                  View PDF
+                  Download PDF
                 </a>
               </div>
             </div>

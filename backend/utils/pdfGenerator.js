@@ -481,51 +481,63 @@ module.exports = function generatePDF(reportData) {
       // ------------------------------------------------------
       // Clinical assessment
       // ------------------------------------------------------
+      // ------------------------------------------------------
+      // Clinical assessment
+      // ------------------------------------------------------
       const remarks =
         (reportData.doctorRemarks && reportData.doctorRemarks.trim()) ||
         "No clinical assessment has been provided by the attending veterinarian.";
 
       setFont(FONT.regular, 10);
-      const remarksHeight = doc.heightOfString(remarks, {
-        width: PAGE.width - 34,
-        align: "justify",
-        lineGap: 4,
-      });
-      const assessmentMinHeight = Math.max(90, remarksHeight + 46);
 
-      // Reserve space for the header AND at least the text's own height,
-      // so they always move to the next page as one unit if they don't fit.
+      const remarksHeight = doc.heightOfString(remarks, {
+        width: PAGE.width - 36,
+        align: "justify",
+        lineGap: 5,
+      });
+
+      // Give the section a substantial visual presence
+      // while allowing it to grow naturally for longer content.
+      const assessmentMinHeight = Math.max(220, remarksHeight + 60);
+
+      // Reserve enough room for the complete section.
       section("Clinical Assessment", assessmentMinHeight);
+
       const assessY = doc.y;
 
-      // Stretch the box down to fill the rest of the page — it never
-      // shrinks below what the text itself needs, but if there's blank
-      // room left on the page, the box grows to cover it.
+      // Fill remaining usable page space when available.
       const assessmentHeight = Math.max(
         assessmentMinHeight,
         PAGE.bottom - assessY,
       );
 
+      // Main assessment panel
       doc
         .roundedRect(PAGE.left, assessY, PAGE.width, assessmentHeight, 4)
         .fillAndStroke(COLORS.panel, COLORS.border);
+
+      // Accent strip
       doc.rect(PAGE.left, assessY, 3, assessmentHeight).fill(COLORS.primary);
 
+      // Assessment heading
       setFont(FONT.bold, 10, COLORS.primary);
+
       doc.text(
         "Veterinarian's Clinical Assessment",
-        PAGE.left + 16,
-        assessY + 14,
+        PAGE.left + 18,
+        assessY + 16,
         {
           characterSpacing: 0.2,
         },
       );
 
+      // Assessment content
       setFont(FONT.regular, 10, COLORS.text);
-      doc.text(remarks, PAGE.left + 16, assessY + 34, {
-        width: PAGE.width - 34,
+
+      doc.text(remarks, PAGE.left + 18, assessY + 42, {
+        width: PAGE.width - 36,
         align: "justify",
-        lineGap: 4,
+        lineGap: 5,
       });
 
       doc.y = assessY + assessmentHeight + 18;

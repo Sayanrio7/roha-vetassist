@@ -5,10 +5,6 @@ const path = require("path");
 module.exports = function generatePDF(reportData) {
   return new Promise((resolve, reject) => {
     try {
-      // ======================================================
-      // CREATE FILE
-      // ======================================================
-
       const fileName = `Clinical_Report_${Date.now()}.pdf`;
 
       const reportsDir = path.join(process.cwd(), "uploads", "reports");
@@ -85,9 +81,13 @@ module.exports = function generatePDF(reportData) {
 
       const fmtDate = (d) => {
         if (!d) return "-";
+
         const dt = new Date(d);
+
         if (isNaN(dt.getTime())) return "-";
+
         return dt.toLocaleDateString("en-IN", {
+          timeZone: "Asia/Kolkata",
           day: "2-digit",
           month: "short",
           year: "numeric",
@@ -95,14 +95,22 @@ module.exports = function generatePDF(reportData) {
       };
 
       const fmtDateTime = (d) => {
+        if (!d) return "-";
+
         const dt = new Date(d);
+
+        if (isNaN(dt.getTime())) return "-";
+
         return `${dt.toLocaleDateString("en-IN", {
+          timeZone: "Asia/Kolkata",
           day: "2-digit",
           month: "short",
           year: "numeric",
-        })} \u00B7 ${dt.toLocaleTimeString("en-IN", {
+        })} · ${dt.toLocaleTimeString("en-IN", {
+          timeZone: "Asia/Kolkata",
           hour: "2-digit",
           minute: "2-digit",
+          hour12: true,
         })}`;
       };
 
@@ -478,12 +486,6 @@ module.exports = function generatePDF(reportData) {
 
       addSpace(18);
 
-      // ------------------------------------------------------
-      // Clinical assessment
-      // ------------------------------------------------------
-      // ------------------------------------------------------
-      // Clinical assessment
-      // ------------------------------------------------------
       const remarks =
         (reportData.doctorRemarks && reportData.doctorRemarks.trim()) ||
         "No clinical assessment has been provided by the attending veterinarian.";
